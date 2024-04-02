@@ -1,0 +1,239 @@
+\documentclass{beamer}
+\usetheme{Boadilla}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\theoremstyle{definition}
+\newtheorem*{acknowledgement}{Acknowledgement}
+\theoremstyle{remark}
+\newtheorem*{remark}{Remark}
+\title{Solving Recursive Sequences}
+\subtitle{A Simple Glance}
+\author{Liu Jingyu}
+\date{\today}
+\AtBeginSection[]{
+  \begin{frame}
+    \frametitle{Table of Contents}
+    \tableofcontents[currentsection]
+  \end{frame}
+  }
+
+
+\begin{document}
+\frame{\titlepage}
+\section{Introduction}
+\begin{frame}
+  \frametitle{What is a recursive sequence?}
+  A recursive sequence is a sequence that its 
+  terms are defined by preceding terms. Several 
+  initial values $a_0, a_1 \dots$ are given and 
+  all following terms are defined. 
+  \begin{examples}[Recursive formyura]
+     \[
+       a_n = a_{n-1}
+     \]
+     \[
+       a_n = 3a_{n-1} + 2
+     \]
+     \[
+       a_n = a_{n-1} + a_{n-2}
+     \]
+  \end{examples}
+Also for simplicity, we will only discuss linear
+formulae.
+\end{frame}
+\section{Case of One Preceding Term}
+\begin{frame}
+  \frametitle{Case of One Preceding Term}
+We will discuss sequences with the following 
+recursice formula: \[
+  a_n = m a_{n-1} + c, m \neq 0
+\]
+In our discussion, we will only focus on the 
+recursive formulae, and not the initial values. 
+\\
+If from the recursive formulae can we find a general 
+form of the general formula with some constants 
+  unknown, then the sequence is said to be solved
+  because those constants can be easily found by 
+  substituting the initial values and solving 
+  simultaneous equations. 
+
+\end{frame}
+\begin{frame}
+  \frametitle{Trivial Cases}
+For the recursive formula  $a_n = m a_{n-1} + c$\dots
+  \begin{block}{when $m = 1$}
+   It becomes an arithmetic sequence. 
+   Its general formula is \[
+    a_n = a_0 + nc.
+   \]
+\end{block}
+  \begin{block}{when $c = 0$}
+  It becomes a geometric sequence. 
+    Its general formula is \[
+      a_n =  m^n a_0
+    \]
+\end{block}
+\end{frame}
+\begin{frame}
+  \frametitle{For non-trivial case $a_n = ma_{n-1} + c$}
+  \begin{block}{for $m\neq 0, 1 \text{ and } c \neq 0$}
+     If we could find some equivalent relationship like \[
+       a_n - k = m(a_{n-1} - k) \]
+     then we can treat $\{a_n - k\}$ as a geometric sequence. 
+     \\
+     From it
+     we get \[
+       a_n = ma_{n-1}+(1-m) k 
+     \]
+     so we let \(
+       k = \frac{c}{1 - m}.
+     \)
+     By solving the geometric sequence 
+     $\{a_n - k\}$ we get \[
+       a_n - k = m^n (a_0 - k)
+     \] and thus \[
+      a_n = m^n (a_0 - \frac{c}{1 - m}) + \frac{c}{1 - m}.
+     \]
+
+   \end{block}
+\end{frame}
+\section{Case of Two Preceding Terms}
+\begin{frame}
+  \frametitle{Case of Two Preceding Terms}
+  The linear recursive formula involving two preceding
+  terms can be written as \[
+    a_n = m_1 a_{n-1} + m_2 a_{n-2} + c
+  \]
+  Here we will discuss the situation where $c = 0$. 
+  Similar methods can be used to solve the situation
+  where $c \neq 0$ and $m_1 + m_2 \neq 1$. 
+  \\
+  Let's start by a famous example.
+\end{frame}
+\begin{frame}
+  \frametitle{Fibanacci Sequence}
+  The Fibonacci sequence is defined as $a_0 = 0$, $a_1 = 1$ and with 
+  recursive formula $a_n = a_{n-1} + a_{n-2}$ for all $n=2,3,4\dots$ 
+  \\
+  It is well known that, for the Fibonacci sequence there 
+  exists a closed-form general formula as below. 
+  \\
+  \begin{block}{Binet's Formula}
+     The general formula of Fibonacci sequence is
+     \[
+       a_n = \frac{1}{\sqrt{5}} \left[\left(\frac{1+\sqrt{5}}{2}\right)^n
+       -\left(\frac{1-\sqrt{5}}{2}\right)^n\right].
+     \]
+  \end{block}
+\end{frame}
+\begin{frame}
+  \frametitle{Solving $a_n = m_1 a_{n-1} + m_2 a_{n-2}$}
+  \begin{block}{Solution}
+    Consider the recursive formula $a_n = m_1 a_{n-1} + m_2 a_{n-2}$. We want 
+    to have \[
+      a_n - \alpha a_{n-1} = \beta (a_{n-1} - \alpha a_{n-2})
+    \]
+    so that we can regard $\{a_n - \alpha a_{n-1}\}$ as a 
+    geometric sequence. 
+    By comparing the coefficients,
+    \[
+      \begin{cases}
+         \alpha + \beta = m_1 \\
+         -\alpha\beta = m_2
+      \end{cases}
+    \]
+    So, $\alpha$ and $\beta$ are the roots of the equation \[
+      x^2 - m_1 x -m_2 = 0. 
+    \] 
+  \end{block}
+\end{frame}
+\begin{frame}
+  \begin{block}{Continued}
+    \emph{Assuming the roots are distinct}, we notice that 
+    the roots of the equation $x^2 - m_1 x -m_2 = 0$ namely $\alpha$ 
+    and $\beta$ are symmetric, so we can write two equations:
+    \[
+      \begin{cases}
+        a_n - \alpha a_{n-1} = \beta (a_{n-1} - \alpha a_{n-2}) \\
+        a_n - \beta a_{n-1} = \alpha (a_{n-1} - \beta a_{n-2})
+      \end{cases}
+    \]
+    By considering the initial values of these two 
+    corresponding geometric sequences constants $A_1$ and $A_2$, applying
+    the general formula for geometric sequences gives \[
+      \begin{cases}
+        a_n - \alpha a_{n-1} = A_1 \beta^n \\
+        a_n - \beta a_{n-1} = A_2 \alpha^n 
+      \end{cases}
+    \]
+    Simplifying give our final formula \[
+      a_n = B_1 \alpha^n + B_2 \beta^n
+    \]
+    where $B_1$ and $B_2$ are constants to be found.
+  \end{block}
+\end{frame}
+\begin{frame}
+  \frametitle{An Example}
+  \begin{examples}[Fibonacci]
+    From the recursive formula $a_n = a_{n-1} + a_{n-2}$ we first 
+    form an equation \[
+      x^2 - x - 1 = 0.
+    \]
+    The roots of this equation are $\frac{1 \pm \sqrt{5}}{2}$, 
+    so the general formula must be in the form \[
+      a_n = A_1 \left(\frac{1+\sqrt{5}}{2}\right)^n
+      + A_2 \left(\frac{1-\sqrt{5}}{2}\right)^n.
+    \]
+    Substituting $a_0 = 0$ and $a_1 = 1$ and solving 
+    simultaneous equations directly give 
+    \emph{Binet's Formula}.
+   \end{examples}
+\end{frame}
+\section{A Note on Induction}
+\begin{frame}
+  \frametitle{A Note on Induction}
+   All general formulae constructed above can be "found" 
+   by mathematical induction if you can \emph{guess} the 
+   answer from nothing. \\
+   An example using induction is included in the 
+   exercise. 
+\end{frame}
+\section{Further Thinking}
+\begin{frame} 
+  \begin{block}{Verify the following conjecture by induction}
+     For a recursive sequence with the recursive formula \[
+      a_n = \sum_{r=1}^t m_r a_{n-r},
+     \]
+     we have the general formula \[
+       a_n = \sum_{r=1}^{t} C_r \lambda_r^n 
+     \]
+     where $C_1\dots C_t$ are constants and $\lambda_1\dots \lambda_r$
+     are distinct roots of the equation \[
+       x^t - \sum_{r=1}^t m_r x^{t-r} = 0.
+     \] (All roots are distinct assumed)
+  \end{block}
+\end{frame}
+\begin{frame}
+  \frametitle{Extension to Matrices}
+  \begin{problem}[3**]
+    Let a sequence with recursive formula \[
+      a_n = m_1 a_{n-1} + m_2 a_{n-2}
+    \] 
+    and $m_1^2 + 4m_2 > 0$. \\
+    By setting column vector \[
+       \textbf{V}_n = \begin{pmatrix}
+         a_{n-1} \\ a_n 
+       \end{pmatrix}
+     \]
+     and considering rewriting the recursive relationship
+     as \[
+       \textbf{V}_{n+1} = \textbf{R}\textbf{V}_n
+     \] where $\textbf{R}$ is a $2 \times 2$
+     matrix, reach the same result. 
+\end{problem}
+\end{frame}
+\begin{frame}
+  \huge{Thank You.}
+\end{frame}
+\end{document}

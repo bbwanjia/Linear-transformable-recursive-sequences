@@ -1,0 +1,286 @@
+\documentclass{beamer}
+\usetheme{Boadilla}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\theoremstyle{definition}
+\newtheorem*{acknowledgement}{Acknowledgement}
+\theoremstyle{remark}
+\newtheorem*{remark}{Remark}
+\title{Solving Recursive Sequences}
+\subtitle{the Homogeneous Linear case}
+\author{Liu Jingyu}
+\date{\today}
+\AtBeginSection[]{
+  \begin{frame}
+    \frametitle{Table of Contents}
+    \tableofcontents[currentsection]
+  \end{frame}
+  }
+
+
+\begin{document}
+\frame{\titlepage}
+\section{Introduction}
+\begin{frame}
+  \frametitle{Fibanacci Sequence}
+  The Fibonacci sequence is defined as $a_0 = 0$, $a_1 = 1$ and with 
+  recursive formula $a_n = a_{n-1} + a_{n-2}$ for all $n=2,3,4\dots$ 
+  \\
+  It is well known that, for the Fibonacci sequence there 
+  exists a closed-form general formula as below. 
+  \\
+  \begin{block}{Binet's Formula}
+     The general formula of Fibonacci sequence is
+     \[
+       a_n = \frac{1}{\sqrt{5}} \left[\left(\frac{1+\sqrt{5}}{2}\right)^n
+       -\left(\frac{1-\sqrt{5}}{2}\right)^n\right].
+     \]
+  \end{block}
+\end{frame}
+\begin{frame}
+  \frametitle{First Insight}
+  Can we find a closed-form general formula to any \emph{homogeneous linear} 
+  recursive sequence, probably involving more backward terms and some 
+  parameters on these terms?
+  \begin{block}{Problem}
+     Can we find a general formula to the following recursion such that 
+     \[
+       a_n = \sum_{r=1}^t m_r a_{n-r}
+     \]
+      for all $n \in \mathbb{N} \geq t$ with $a_0 \dots a_{t-1}$ given?
+  \end{block}
+  Let we start with a simpler case where $t = 2$. 
+\end{frame}
+\section{Case of $t = 2$}
+\begin{frame}
+  \frametitle{Solving the special case where $t = 2$}
+  \begin{block}{Solution}
+    Consider the recursive formula $a_n = m_1 a_{n-1} + m_2 a_{n-2}$. We want 
+    to have \[
+      a_n - \alpha a_{n-1} = \beta (a_{n-1} - \alpha a_{n-2})
+    \]
+    so that we can regard $\{a_n - \alpha a_{n-1}\}$ as a 
+    geometric sequence. 
+    By comparing the coefficients,
+    \[
+      \begin{cases}
+         \alpha + \beta = m_1 \\
+         -\alpha\beta = m_2
+      \end{cases}
+    \]
+    So, $\alpha$ and $\beta$ are the roots of the equation \[
+      x^2 - m_1 x -m_2 = 0. 
+    \] 
+  \end{block}
+\end{frame}
+\begin{frame}
+  \begin{block}{Continued}
+    Assuming the roots are distinct, we notice that 
+    the roots of the equation $x^2 - m_1 x -m_2 = 0$ namely $\alpha$ 
+    and $\beta$ are symmetric, so we can write two equations:
+    \[
+      \begin{cases}
+        a_n - \alpha a_{n-1} = \beta (a_{n-1} - \alpha a_{n-2}) \\
+        a_n - \beta a_{n-1} = \alpha (a_{n-1} - \beta a_{n-2})
+      \end{cases}
+    \]
+    By considering the initial values of these two 
+    corresponding geometric sequences constants $A_1$ and $A_2$, applying
+    the general formula for geometric sequences gives \[
+      \begin{cases}
+        a_n - \alpha a_{n-1} = A_1 \beta^n \\
+        a_n - \beta a_{n-1} = A_2 \alpha^n 
+      \end{cases}
+    \]
+    Simplifying give our final formula \[
+      a_n = B_1 \alpha^n + B_2 \beta^n
+    \]
+    where $B_1$ and $B_2$ are constants to be found.
+  \end{block}
+\end{frame}
+\begin{frame}
+  \frametitle{An Example}
+  \begin{examples}[Fibonacci]
+    From the recursive formula $a_n = a_{n-1} + a_{n-2}$ we first 
+    form an equation \[
+      x^2 - x - 1 = 0.
+    \]
+    The roots of this equation are $\frac{1 \pm \sqrt{5}}{2}$, 
+    so the general formula must be in the form \[
+      a_n = A_1 \left(\frac{1+\sqrt{5}}{2}\right)^n
+      + A_2 \left(\frac{1-\sqrt{5}}{2}\right)^n.
+    \]
+    Substituting $a_0 = 0$ and $a_1 = 1$ and solving 
+    simultaneous equations directly give 
+    \emph{Binet's Formula}.
+   \end{examples}
+\end{frame}
+\section{The More General Case}
+\begin{frame} 
+  \begin{block}{Conjecture}
+     For a recursive sequence with the recursive formula \[
+      a_n = \sum_{r=1}^t m_r a_{n-r},
+     \]
+     we have the general formula \[
+       a_n = \sum_{r=1}^{t} C_r \lambda_r^n 
+     \]
+     where $C_1\dots C_t$ are constants and $\lambda_1\dots \lambda_r$
+     are distinct roots of the equation \[
+       x^t - \sum_{r=1}^t m_r x^{t-r} = 0.
+     \] (All roots are distinct assumed)
+  \end{block}
+\end{frame}
+\begin{frame}
+  \frametitle{Concepts}
+  We will mainly borrow a concept called \emph{generating function}. 
+  \begin{definition}[Generating function]
+    For any sequence $a_0, a_1, a_2 \dots$, the \emph{generating function}
+    of this sequence is a polynomial defined by \[
+      G(x) = a_0 + a_1 x + a_2 x^2 + \dots = \sum a_r x^r.
+    \]
+    Here $x$ is an arbitrary variable. 
+    The function can be finite or infinite.
+  \end{definition}
+\end{frame}
+\begin{frame}
+  \frametitle{Concepts}
+  \begin{definition}[Characteristic equation]
+    For a linear recursive formula \[
+       a_n = \sum_{r=1}^t m_r a_{n-r}
+    \] its \emph{characteristic equation} is \[
+      x^t - \sum_{r=1}^t m_r x^{t-r} = 0.
+    \]
+  \end{definition}
+  One can see that this definition is just an 
+  abbreviation of the equation we mentioned 
+  several times before. In our conjecture 
+  $\lambda_1 \dots \lambda_r$ are distinct
+  roots of the characteristic equation.
+\end{frame}
+\begin{frame}
+  \frametitle{Key Idea}
+  Our goal is to solve the general formula of the 
+  coefficients of the generating function $G(x)$.
+  In our case, the generating function is infinite, 
+  so it is not easy to directly solve for the general formula. 
+  \\
+  If we could find a finite function, called $R(x)$, such 
+  that \[
+    G(x)\cdot R(x) = f(x)
+  \] where $f(x)$ is a finite polynomial, then the coefficients 
+  of $G(x)$ \textit{could} be solved using Taylor expansion. 
+ \\
+  We claim explicitly there exists such $R(x)$.
+\end{frame}
+\begin{frame}
+  \begin{block}{Claim}
+    Let
+   \[
+     R(x) = 1 - \sum_{r=1}^t m_r x^r,
+   \]
+    then $f(x)$ is a finite polynomial with degree $<t$.
+  \end{block}
+  \begin{proof}
+    For all $\varepsilon \in \mathbb{N}\geq t$ we have 
+    the term $x^\varepsilon$ in $f(x)$ 
+    calculated as \[
+         1\cdot a_\varepsilon x^\varepsilon 
+         - \sum_{r=1}^t (m_r x^r \cdot a_{\varepsilon-r}x^{\varepsilon-r})
+         = \left(a_\varepsilon-\sum_{r=1}^t m_r a_{\varepsilon-r}\right)x^\varepsilon \]
+    which is zero according to the recursive formula.
+  \end{proof} 
+\end{frame}
+\begin{frame}
+  \frametitle{To a Final Result}
+  Hence we have found that, the generating function 
+  of the recursive sequence can be represented by
+  a quotient of two finite polynomials, i.e. \[
+    G(x) = \frac{f(x)}{R(x)} = \frac{f(x)}{1 - \sum_{r=1}^t m_r x^r}. \]
+  \begin{examples}[Fibonacci]
+     The generating function of Fibonacci sequence
+     is \[
+       G(x) = 0 + x + x^2 +\dots = \frac{x}{1-x-x^2}.
+     \]
+  \end{examples}
+\end{frame}
+\begin{frame}
+  \frametitle{Final Result}
+  By decomposing it into partial fractions and then 
+  implementing Taylor(binomial) expansion, one can find
+  the form of the general formula of a homogeneous linear 
+  recursive sequence. Simplifying process is omitted here. 
+  \begin{alertblock}{Alert}
+    When using Taylor(binomial) expansion, it is necessary 
+    to consider whether the series is convergent. What is the 
+    range of values of $x$ that the expansion is guaranteed to 
+    be convergent? This is left as an exercise.
+  \end{alertblock}
+  Finally we have found that our conjecture is true. 
+  The result is shown again on the next slide.
+\end{frame}
+\begin{frame}
+  \begin{theorem}[General formula of homogeneous linear recursion]
+     For a recursive sequence with the recursive formula \[
+      a_n = \sum_{r=1}^t m_r a_{n-r},
+     \]
+     we have the general formula \[
+       a_n = \sum_{r=1}^{t} C_r \lambda_r^n 
+     \]
+     where $C_1\dots C_t$ are constants and $\lambda_1\dots \lambda_r$
+     are distinct roots of its 
+     characteristic equation. It is assumed that
+     all roots are distinct. 
+ 
+ \end{theorem}
+\end{frame}
+\section{Further Thinking}
+\begin{frame}
+  \frametitle{Exercise}
+  \begin{block}{Exercise}
+    Find the range of values of $x$ that the
+    Taylor(binomial) expansion in our method
+    is guaranteed to be convergent.
+  \end{block}
+\end{frame}
+\begin{frame}
+  \frametitle{Removing the Limitation on the Characteristic Equation}
+  \begin{problem}[1*]
+    Using a similar approach, find the general formula 
+    of any homogeneous linear recursive requence where 
+    its characteristic equation \emph{may} has 
+    duplicate roots. 
+  \end{problem}
+\end{frame}
+\begin{frame}
+  \frametitle{Extensions}
+\begin{problem}[2**]
+  Prove for any recursive
+  sequence with the recursive formula \[
+    a_n = \sum_{r=1}^t m_r a_{n-r} + P(n)
+  \] where $P(n)$ is a polynomial on $n$ and \[
+    \sum_{r=1}^t m_r \neq 1
+  \]
+  there exists a calculabe general formula. \\
+  Hint: start with $P(n) = c$ where $c$ is a constant.
+\end{problem}
+\end{frame}
+\begin{frame}
+  \frametitle{Extensions}
+  \begin{problem}[3**]
+     By setting column vector \[
+       \textbf{V}_n = (a_{n-t}, a_{n-t+1}\dots a_n)^T
+     \]
+     and considering rewriting the recursive relationship
+     as \[
+       \textbf{V}_{n+1} = \textbf{R}\textbf{V}_n
+     \] where $\textbf{R}$ is a $t \times t$
+     matrix, reach the same result as the case 
+     when all roots of the characteristic equation 
+     are distinct.\\ Then, explain why its characteristic
+     equation is defined in that way.
+  \end{problem}
+\end{frame}
+\begin{frame}
+  \huge{Thank You.}
+\end{frame}
+\end{document}
